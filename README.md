@@ -29,7 +29,7 @@ Use \<tab\> to switch between available commands.
 ### Installing ###
 
 #### Using pathogen ####
-First make sure you have [Pathogen](https://github.com/tpope/vim-pathogen)
+First make sure you have [Pathogen](https://github.com/tpope/vim-pathogen), then
 ```shell
 cd ~/.vim
 mkdir -p bundle && cd bundle

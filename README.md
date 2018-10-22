@@ -26,8 +26,8 @@ Install & lock `pyyaml` in dev packages
 
 Use \<tab\> to switch between available commands.
 
-## Technically...##
-### Installing ###
+## How to get it ##
+###Installing ###
 
 #### Using pathogen ####
 ```shell

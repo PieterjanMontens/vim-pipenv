@@ -29,6 +29,7 @@ Use \<tab\> to switch between available commands.
 ### Installing ###
 
 #### Using pathogen ####
+First make sure you have [Pathogen](https://gist.github.com/romainl/9970697)
 ```shell
 cd ~/.vim
 mkdir -p bundle && cd bundle
@@ -38,4 +39,9 @@ git clone https://github.com/PieterjanMontens/vim-pipenv
 ### Updating ###
 ```shell
 git -C ~/.vim/bundle/vim-pipenv pull
+```
+
+### Removing ###
+```shell
+rm -rf ~/.vim/bundle/vim-pipenv
 ```

@@ -1,0 +1,24 @@
+*pipenv.txt* Manage and activate pipenv from within Vim
+
+Author: Pieterjan Montens <pieterjan@montens.net>   *pipenv-author*
+License: Same terms as Vim itself (see |license|)
+
+INTRODUCTION                                        *pipenv* *pipenv.vim*
+
+The pipenv plugin allows you to manage pipenv from within a Vim session,
+and will activate the project's venv for you.
+In order to do this, vim-pipenv uses plytophogy's <vim-virtualenv>
+(https://github.com/plytophogy/vim-virtualenv) plugin (which you should
+have installed).
+
+COMMANDS                                            *pipenv-commands*
+
+:Pipenv [COMMAND]                                   *:Pipenv*
+    Send a pipenv command. The output will be displayed in Vim.
+    
+CONFIGURATION                                       *pipenv-configuration*
+
+g:pipenv_auto_activate                              *g:pipenv_auto_activate*
+    If set to 1 (default), an attempt will be made to activate the pipenv venv.
+
+vim:tw=78:et:ft=help:norl:

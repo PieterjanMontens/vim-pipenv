@@ -20,7 +20,7 @@ command! -bar -nargs=? -complete=custom,s:CompletePipenv Pipenv :call pipenv#com
 function! s:CompletePipenv(ArgLead, CmdLine, CursorPos)
     " let function = system("pipenv --completion")
     " let what =  system(function)
-    return "install\nuninstall\ngraph\nupdate\nsync\nlock" . a:CmdLine . "\n" . a:CursorPos . "\n" . a:ArgLead
+    return "install\nuninstall\ngraph\nupdate\nsync\nlock\nclean\nrun" . a:CmdLine . "\n" . a:CursorPos . "\n" . a:ArgLead
 endfunction
 
 if g:pipenv_auto_activate == 1

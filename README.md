@@ -5,6 +5,7 @@ Inspired by and using [vim-virtualenv](https://github.com/plytophogy/vim-virtual
 You can also issue commands to pipenv with the `:Pipenv` command, of which the output will be displayed once the command is done (which.. can take some time. Working on it.).
 
 > This is still very much a work in progress ;)
+
 _the author_
 
 ## Usage Examples ##

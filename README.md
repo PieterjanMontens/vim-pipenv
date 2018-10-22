@@ -4,6 +4,7 @@ Inspired by and using [vim-virtualenv](https://github.com/plytophogy/vim-virtual
 
 You can also issue commands to pipenv with the `:Pipenv` command, of which the output will be displayed once the command is done (which.. can take some time. Working on it.).
 
+
 > This is still very much a work in progress ;)
 
 _the author_
@@ -25,7 +26,8 @@ Install & lock `pyyaml` in dev packages
 
 Use \<tab\> to switch between available commands.
 
-## Installing ##
+## Technically...##
+### Installing ###
 
 #### Using pathogen ####
 ```shell
@@ -34,3 +36,7 @@ mkdir -p bundle && cd bundle
 git clone https://github.com/PieterjanMontens/vim-pipenv
 ```
 
+### Updating ###
+```shell
+git -C ~/.vim/bundle/vim-pipenv pull
+```

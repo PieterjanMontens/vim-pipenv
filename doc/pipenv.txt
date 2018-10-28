@@ -14,11 +14,21 @@ have installed).
 COMMANDS                                            *pipenv-commands*
 
 :Pipenv [COMMAND]                                   *:Pipenv*
-    Send a pipenv command. The output will be displayed in Vim.
+    Without providing a command: activate venv of current buffer
+    "enable" Activate pipenv venv
+    "disable" Deactivate pipenv venv
+    Otherwise, send a pipenv command. The output will be displayed in Vim.
+
+:Pvv [COMMAND]                                      *:Pvv*
+    Alias for :Pipenv
     
 CONFIGURATION                                       *pipenv-configuration*
 
 g:pipenv_auto_activate                              *g:pipenv_auto_activate*
     If set to 1 (default), an attempt will be made to activate the pipenv venv.
+
+g:pipenv_auto_switch                                *g:pipenv_auto_switch*
+    If set to 1 (default), an attempt will be made automatically switch venvs
+    when opening a new file.
 
 vim:tw=78:et:ft=help:norl:

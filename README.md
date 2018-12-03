@@ -58,11 +58,14 @@ Plugin 'PieterjanMontens/vim-pipenv'
 Open vim and run `:PluginInstall`.
 
 ### Updating ###
+Using git:
 ```shell
 git -C ~/.vim/bundle/vim-pipenv pull
 ```
+Using __Vundle__ from within vim: `:PluginUpdate`
 
 ### Removing ###
 ```shell
 rm -rf ~/.vim/bundle/vim-pipenv
 ```
+With __Vundle__: remove corresponding plugin line from `.vimrc` and run `:PluginUpdate`

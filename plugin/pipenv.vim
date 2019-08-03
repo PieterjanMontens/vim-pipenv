@@ -5,6 +5,7 @@ endif
 
 let g:pipenv_loaded = 1
 let g:pipenv_activated = 0
+let g:pipenv_notify = 0
 let s:save_cpo = &cpo
 set cpo&vim
 

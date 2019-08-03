@@ -1,5 +1,5 @@
 " pipenv-vim core commands
-" Version: 0.2.0
+" Version: 0.3.0
 
 function! pipenv#command(...)
     let action = a:0 > 0 ? a:1 : ''
@@ -26,10 +26,22 @@ endfunction
 
 function! pipenv#enable_auto()
     autocmd filetype python call pipenv#activate()
+    autocmd BufWinEnter *.py call pipenv#notify()
 endfunction
 
 function! pipenv#debug(Wow)
-    echomsg "event: " . a:Wow
+    echomsg "vim-pipenv | event: " . a:Wow
+endfunction
+
+function! pipenv#notify(...)
+    if !exists("g:virtualenv_loaded")
+        return
+    endif
+    if g:pipenv_notify == 1
+        let clean_text = substitute(g:pipenv_path, '[[:cntrl:]]', '', 'g')
+        echomsg "vim-pipenv | Activated venv: " . clean_text 
+        let g:pipenv_notify = 0
+    endif
 endfunction
 
 function! pipenv#activate(...)
@@ -40,13 +52,15 @@ function! pipenv#activate(...)
     endif
     if g:pipenv_activated == 0
         " No pipenv yet: try to load one from the current file
-        let g:pipenv_activated = 1
         let venv_path = system('sh -c "export PIPENV_IGNORE_VIRTUALENVS=1;export PIPENV_VERBOSITY=-1; cd ' . expand('%:p:h') . '; pipenv --venv"')
         if shell_error == 0
             let venv_name = substitute(venv_path, '\(\/.\+\/\|\n\|\r\)', '', '') 
             let venv_name = substitute(venv_name, '\n\+$', '', '')
             let g:venv_name = venv_name
             call virtualenv#activate(g:venv_name)
+            let g:pipenv_activated = 1
+            let g:pipenv_notify = 1
+            let g:pipenv_path = venv_path
         endif
     else
         " Already a pipenv active, check if still the same
@@ -61,6 +75,8 @@ function! pipenv#activate(...)
                 " Other venv detected, switch!
                 let g:venv_name = venv_name
                 call virtualenv#activate(g:venv_name)
+                let g:pipenv_notify = 1
+                let g:pipenv_path = venv_path
             endif
         endif
     endif

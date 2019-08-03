@@ -1,7 +1,7 @@
 Changelog
 =========
 
-Sat Aug 03 2019 11:49:37 CEST 0.3.1
+Sat Aug 03 11:49:37 CEST 2019 0.3.1
 -------------------------------------
 * added venv activation notification
 * merged PR for code simplification by @pgilad

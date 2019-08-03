@@ -52,11 +52,10 @@ function! pipenv#activate(...)
     endif
     if g:pipenv_activated == 0
         " No pipenv yet: try to load one from the current file
-        let venv_path = system('sh -c "export PIPENV_IGNORE_VIRTUALENVS=1;export PIPENV_VERBOSITY=-1; cd ' . expand('%:p:h') . '; pipenv --venv"')
+        let g:pipenv_activated = 1
+        let l:venv_path = system('sh -c "export PIPENV_IGNORE_VIRTUALENVS=1;export PIPENV_VERBOSITY=-1; cd ' . expand('%:p:h') . '; pipenv --venv"')
         if shell_error == 0
-            let venv_name = substitute(venv_path, '\(\/.\+\/\|\n\|\r\)', '', '') 
-            let venv_name = substitute(venv_name, '\n\+$', '', '')
-            let g:venv_name = venv_name
+            let g:venv_name = fnamemodify(l:venv_path, ':p:t')
             call virtualenv#activate(g:venv_name)
             let g:pipenv_activated = 1
             let g:pipenv_notify = 1
@@ -67,13 +66,12 @@ function! pipenv#activate(...)
         if g:pipenv_auto_switch == 0 && force == 0
             return
         endif
-        let venv_path = system('sh -c "export PIPENV_IGNORE_VIRTUALENVS=1;export PIPENV_VERBOSITY=-1; cd ' . expand('%:p:h') . '; pipenv --venv"')
+        let l:venv_path = system('sh -c "export PIPENV_IGNORE_VIRTUALENVS=1;export PIPENV_VERBOSITY=-1; cd ' . expand('%:p:h') . '; pipenv --venv"')
         if shell_error == 0
-            let venv_name = substitute(venv_path, '\(\/.\+\/\|\n\|\r\)', '', '') 
-            let venv_name = substitute(venv_name, '\n\+$', '', '')
-            if venv_name != g:venv_name
+            let l:venv_name = fnamemodify(l:venv_path, ':p:t')
+            if l:venv_name != g:venv_name
                 " Other venv detected, switch!
-                let g:venv_name = venv_name
+                let g:venv_name = l:venv_name
                 call virtualenv#activate(g:venv_name)
                 let g:pipenv_notify = 1
                 let g:pipenv_path = venv_path

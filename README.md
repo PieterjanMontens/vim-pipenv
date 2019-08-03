@@ -47,13 +47,25 @@ git clone https://github.com/PieterjanMontens/vim-pipenv
 # Install vim-virtualenv as well
 git clone https://github.com/plytophogy/vim-virtualenv
 ```
+#### Vundle ####
+Using [Vundle](https://github.com/VundleVim/Vundle.vim), install goes like this:
+
+Add these lines to your vundle plugins in your `.vimrc`
+```shell
+Plugin 'plytophogy/vim-virtualenv'
+Plugin 'PieterjanMontens/vim-pipenv'
+```
+Open vim and run `:PluginInstall`.
 
 ### Updating ###
+Using git:
 ```shell
 git -C ~/.vim/bundle/vim-pipenv pull
 ```
+Using __Vundle__ from within vim: `:PluginUpdate`
 
 ### Removing ###
 ```shell
 rm -rf ~/.vim/bundle/vim-pipenv
 ```
+With __Vundle__: remove corresponding plugin line from `.vimrc` and run `:PluginUpdate`

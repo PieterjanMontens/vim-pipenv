@@ -1,5 +1,5 @@
 " pipenv-vim core commands
-" Version: 0.3.0
+" Version: 0.3.1
 
 function! pipenv#command(...)
     let action = a:0 > 0 ? a:1 : ''
@@ -55,11 +55,11 @@ function! pipenv#activate(...)
         let g:pipenv_activated = 1
         let l:venv_path = system('sh -c "export PIPENV_IGNORE_VIRTUALENVS=1;export PIPENV_VERBOSITY=-1; cd ' . expand('%:p:h') . '; pipenv --venv"')
         if shell_error == 0
-            let g:venv_name = fnamemodify(l:venv_path, ':p:t')
+            let g:venv_name = fnamemodify(l:venv_path, ':p:t:gs?[[:cntrl:]]??')
             call virtualenv#activate(g:venv_name)
             let g:pipenv_activated = 1
             let g:pipenv_notify = 1
-            let g:pipenv_path = venv_path
+            let g:pipenv_path = l:venv_path
         endif
     else
         " Already a pipenv active, check if still the same
@@ -68,13 +68,13 @@ function! pipenv#activate(...)
         endif
         let l:venv_path = system('sh -c "export PIPENV_IGNORE_VIRTUALENVS=1;export PIPENV_VERBOSITY=-1; cd ' . expand('%:p:h') . '; pipenv --venv"')
         if shell_error == 0
-            let l:venv_name = fnamemodify(l:venv_path, ':p:t')
+            let l:venv_name = fnamemodify(l:venv_path, ':p:t:gs?[[:cntrl:]]??')
             if l:venv_name != g:venv_name
                 " Other venv detected, switch!
                 let g:venv_name = l:venv_name
                 call virtualenv#activate(g:venv_name)
                 let g:pipenv_notify = 1
-                let g:pipenv_path = venv_path
+                let g:pipenv_path = l:venv_path
             endif
         endif
     endif

@@ -1,5 +1,5 @@
 " pipenv-vim core commands
-" Version: 0.2.0
+" Version: 0.3.0
 
 function! pipenv#command(...)
     let action = a:0 > 0 ? a:1 : ''
@@ -26,10 +26,22 @@ endfunction
 
 function! pipenv#enable_auto()
     autocmd filetype python call pipenv#activate()
+    autocmd BufWinEnter *.py call pipenv#notify()
 endfunction
 
 function! pipenv#debug(Wow)
-    echomsg "event: " . a:Wow
+    echomsg "vim-pipenv | event: " . a:Wow
+endfunction
+
+function! pipenv#notify(...)
+    if !exists("g:virtualenv_loaded")
+        return
+    endif
+    if g:pipenv_notify == 1
+        let clean_text = substitute(g:pipenv_path, '[[:cntrl:]]', '', 'g')
+        echomsg "vim-pipenv | Activated venv: " . clean_text 
+        let g:pipenv_notify = 0
+    endif
 endfunction
 
 function! pipenv#activate(...)
@@ -45,6 +57,9 @@ function! pipenv#activate(...)
         if shell_error == 0
             let g:venv_name = fnamemodify(l:venv_path, ':p:t')
             call virtualenv#activate(g:venv_name)
+            let g:pipenv_activated = 1
+            let g:pipenv_notify = 1
+            let g:pipenv_path = venv_path
         endif
     else
         " Already a pipenv active, check if still the same
@@ -58,6 +73,8 @@ function! pipenv#activate(...)
                 " Other venv detected, switch!
                 let g:venv_name = l:venv_name
                 call virtualenv#activate(g:venv_name)
+                let g:pipenv_notify = 1
+                let g:pipenv_path = venv_path
             endif
         endif
     endif

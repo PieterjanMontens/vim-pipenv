@@ -1,5 +1,5 @@
 " pipenv-vim core commands
-" Version: 0.3.1
+" Version: 0.3.2
 
 function! pipenv#command(...)
     let action = a:0 > 0 ? a:1 : ''
@@ -54,7 +54,7 @@ function! pipenv#activate(...)
         " No pipenv yet: try to load one from the current file
         let g:pipenv_activated = 1
         let l:venv_path = system('sh -c "export PIPENV_IGNORE_VIRTUALENVS=1;export PIPENV_VERBOSITY=-1; cd ' . expand('%:p:h') . '; pipenv --venv"')
-        if shell_error == 0
+        if v:shell_error == 0
             let g:venv_name = fnamemodify(l:venv_path, ':p:t:gs?[[:cntrl:]]??')
             call virtualenv#activate(g:venv_name)
             let g:pipenv_activated = 1
@@ -67,7 +67,7 @@ function! pipenv#activate(...)
             return
         endif
         let l:venv_path = system('sh -c "export PIPENV_IGNORE_VIRTUALENVS=1;export PIPENV_VERBOSITY=-1; cd ' . expand('%:p:h') . '; pipenv --venv"')
-        if shell_error == 0
+        if v:shell_error == 0
             let l:venv_name = fnamemodify(l:venv_path, ':p:t:gs?[[:cntrl:]]??')
             if l:venv_name != g:venv_name
                 " Other venv detected, switch!

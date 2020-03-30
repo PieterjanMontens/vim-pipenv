@@ -25,7 +25,7 @@ function! pipenv#command(...)
 endfunction
 
 function! pipenv#enable_auto()
-    autocmd filetype python call pipenv#activate()
+    autocmd FileType python call pipenv#activate()
     autocmd BufWinEnter *.py call pipenv#notify()
 endfunction
 

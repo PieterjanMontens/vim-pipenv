@@ -39,9 +39,18 @@ function! pipenv#notify(...)
     endif
     if g:pipenv_notify == 1
         let clean_text = substitute(g:pipenv_path, '[[:cntrl:]]', '', 'g')
-        echomsg "vim-pipenv | Activated venv: " . clean_text 
+        echomsg "vim-pipenv | Activated venv: " . clean_text
         let g:pipenv_notify = 0
     endif
+endfunction
+
+function! pipenv#venv(...)
+  let l:shellslash = &shellslash
+  set shellslash
+  let l:cmd = 'sh -c "PIPENV_IGNORE_VIRTUALENVS=1 PIPENV_VERBOSITY=-1 cd ' . expand('%:p:h') . ' && pipenv --venv"'
+  let l:venv_path = system(l:cmd)
+  let &shellslash = l:shellslash
+  return l:venv_path
 endfunction
 
 function! pipenv#activate(...)
@@ -53,7 +62,7 @@ function! pipenv#activate(...)
     if g:pipenv_activated == 0
         " No pipenv yet: try to load one from the current file
         let g:pipenv_activated = 1
-        let l:venv_path = system('sh -c "export PIPENV_IGNORE_VIRTUALENVS=1;export PIPENV_VERBOSITY=-1; cd ' . expand('%:p:h') . '; pipenv --venv"')
+        let l:venv_path = pipenv#venv()
         if v:shell_error == 0
             let g:venv_name = fnamemodify(l:venv_path, ':p:t:gs?[[:cntrl:]]??')
             call virtualenv#activate(g:venv_name)
@@ -66,7 +75,7 @@ function! pipenv#activate(...)
         if g:pipenv_auto_switch == 0 && force == 0
             return
         endif
-        let l:venv_path = system('sh -c "export PIPENV_IGNORE_VIRTUALENVS=1;export PIPENV_VERBOSITY=-1; cd ' . expand('%:p:h') . '; pipenv --venv"')
+        let l:venv_path = pipenv#venv()
         if v:shell_error == 0
             let l:venv_name = fnamemodify(l:venv_path, ':p:t:gs?[[:cntrl:]]??')
             if l:venv_name != g:venv_name

@@ -21,7 +21,7 @@ COMMANDS                                            *pipenv-commands*
 
 :Pvv [COMMAND]                                      *:Pvv*
     Alias for :Pipenv
-    
+
 CONFIGURATION                                       *pipenv-configuration*
 
 g:pipenv_auto_activate                              *g:pipenv_auto_activate*
